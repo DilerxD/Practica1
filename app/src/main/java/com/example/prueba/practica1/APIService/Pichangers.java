@@ -22,12 +22,10 @@ public class Pichangers {
 
     public static void initialize(){
         retrofit = new Retrofit.Builder()
-                .baseUrl("")
+                .baseUrl("http://pichangers-api.mybluemix.net")
                 .build();
         service = retrofit.create(PichangersService.class);
     }
-
-
 
     public interface PichangersService {
         @GET("/alumnos?sin_equipo={flag_equipo}")
@@ -42,7 +40,7 @@ public class Pichangers {
         Call<Message> agregarAlumno(@Path("id") int id,@Path("codigo_alumno") String codigo_alumno);
     }
 
-    public class Usuario{
+    public static class Usuario{
         String nombre,codigo;
         public Usuario(String nombre, String codigo) {
             this.nombre = nombre;
@@ -65,7 +63,7 @@ public class Pichangers {
             this.codigo = codigo;
         }
     }
-    public class Equipo{
+    public static class Equipo{
         String nombre,urlImagen;
         int id,partidosGanados,partidosPerdidos;
         public Equipo(String nombre, String urlImagen, int id, int partidosGanados, int partidosPerdidos) {
@@ -117,7 +115,7 @@ public class Pichangers {
         }
     }
 
-    public class Message{
+    public static class Message{
         String msg;
         public Message(String msg) {
             this.msg = msg;
