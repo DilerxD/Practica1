@@ -6,10 +6,13 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by w3232 on 11/05/2016.
@@ -19,27 +22,54 @@ public class Pichangers {
     public static Retrofit retrofit;
 
     public static PichangersService service;
+    public static boolean initialized = false;
 
     public static void initialize(){
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://pichangers-api.mybluemix.net")
+                .baseUrl("http://1-dot-pichangers-1307.appspot.com/rest/")
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
         service = retrofit.create(PichangersService.class);
+        initialized =true;
     }
 
     public interface PichangersService {
-        @GET("/alumnos?sin_equipo={flag_equipo}")
-        Call<List<Usuario>> alumnosSinEquipo(@Path("flag_equipo") boolean flag_equipo);
-        @POST("/login")
-        Call<Message> login(@Field("usuario") String usuario,@Field("password") String password);
-        @GET("/equipos")
+        @GET("alumnos")
+        Call<List<Usuario>> alumnosSinEquipo(@Query("sin_equipo") boolean flag_equipo);
+        @POST("alumnos/login")
+        Call<Message> login(@Body Login user);
+        @GET("equipos")
         Call<List<Equipo>> equipos();
-        @GET("/equipos/{id}")
+        @GET("equipos/{id}")
         Call<Equipo> equipo(@Path("id") int id);
-        @POST("/equipos/{id}/{codigo_alumno}")
+        @POST("equipos/{id}/{codigo_alumno}")
         Call<Message> agregarAlumno(@Path("id") int id,@Path("codigo_alumno") String codigo_alumno);
     }
 
+    public static class Login{
+        String usuario,password;
+
+        public Login(String usuario, String password) {
+            this.usuario = usuario;
+            this.password = password;
+        }
+
+        public String getUsuario() {
+            return usuario;
+        }
+
+        public void setUsuario(String usuario) {
+            this.usuario = usuario;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+    }
     public static class Usuario{
         String nombre,codigo;
         public Usuario(String nombre, String codigo) {

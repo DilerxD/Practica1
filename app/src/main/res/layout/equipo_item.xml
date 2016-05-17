@@ -18,18 +18,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1">
+
                 <ImageView
                     android:id="@+id/imagen"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:src="@drawable/pony"/>
-                <View
-                    android:background="@drawable/gradient"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
-                </View>
+
                 <TextView
                     android:id="@+id/equipoNombre"
                     android:layout_width="wrap_content"
@@ -38,8 +35,8 @@
                     android:layout_centerHorizontal="true"
                     android:textColor="@color/white"
                     android:text="Equipo"
-                    android:textSize="24dp"
-                    android:layout_margin="8dp"
+                    android:textSize="18dp"
+                    android:layout_margin="2dp"
                     />
             </RelativeLayout>
 
@@ -49,6 +46,8 @@
                 android:orientation="horizontal"
                 android:weightSum="3">
                 <FrameLayout
+                    android:id="@+id/btnAgregar"
+                    android:clickable="true"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="34dp">
