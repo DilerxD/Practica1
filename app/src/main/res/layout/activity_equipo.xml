@@ -9,4 +9,75 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.prueba.practica1.EquipoActivity">
 
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:padding="8dp">
+                <ImageView
+                    android:layout_gravity="center"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ball"/>
+                <TextView
+                    android:id="@+id/txtEquipoNombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Cargando..."
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:layout_margin="4dp"
+                    android:textSize="18dp"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                >
+
+                <ImageView
+                    android:id="@+id/imagen"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/pony"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:orientation="vertical"
+                android:weightSum="3"
+
+                android:padding="8dp">
+                <TextView
+                    android:id="@+id/txtGanados"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Partidos Ganados: Cargando..."
+                    />
+                <TextView
+                    android:id="@+id/txtPerdidos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Partidos Perdidos: Cargando..."
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
 </RelativeLayout>

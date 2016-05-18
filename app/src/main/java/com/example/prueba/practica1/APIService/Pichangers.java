@@ -94,11 +94,11 @@ public class Pichangers {
         }
     }
     public static class Equipo{
-        String nombre,urlImagen;
+        String nombre,urlFoto;
         int id,partidosGanados,partidosPerdidos;
         public Equipo(String nombre, String urlImagen, int id, int partidosGanados, int partidosPerdidos) {
             this.nombre = nombre;
-            this.urlImagen = urlImagen;
+            this.urlFoto = urlImagen;
             this.id = id;
             this.partidosGanados = partidosGanados;
             this.partidosPerdidos = partidosPerdidos;
@@ -113,11 +113,11 @@ public class Pichangers {
         }
 
         public String getUrlImagen() {
-            return urlImagen;
+            return urlFoto;
         }
 
         public void setUrlImagen(String urlImagen) {
-            this.urlImagen = urlImagen;
+            this.urlFoto = urlImagen;
         }
 
         public int getId() {

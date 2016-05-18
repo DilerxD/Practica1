@@ -34,7 +34,7 @@
                     android:layout_alignBottom="@+id/imagen"
                     android:layout_centerHorizontal="true"
                     android:textColor="@color/white"
-                    android:text="Equipo"
+                    android:text="Cargando..."
                     android:textSize="18dp"
                     android:layout_margin="2dp"
                     />

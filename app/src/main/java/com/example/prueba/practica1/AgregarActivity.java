@@ -1,10 +1,13 @@
 package com.example.prueba.practica1;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -21,6 +24,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -69,15 +73,31 @@ public class AgregarActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case android.R.id.home:
+                // ProjectsActivity is my 'home' activity
+                super. onBackPressed();
+                return true;
+        }
+        return (super.onOptionsItemSelected(menuItem));
+    }
 
 
     class AlumnosAdapter extends BaseAdapter {
         List<Pichangers.Usuario> alumnos;
         Context context;
 
+        SweetAlertDialog pDialog;
         public AlumnosAdapter(Context context,List<Pichangers.Usuario> list) {
             alumnos = list;
             this.context = context;
+
+            pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
+            pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+            pDialog.setTitleText("Cargando");
+            pDialog.setCancelable(false);
         }
 
         // Total number of things contained within the adapter
@@ -104,14 +124,29 @@ public class AgregarActivity extends AppCompatActivity {
             txtCodigo.setText(alumnos.get(position).getCodigo());
 
             ImageView btnAdd = (ImageView)view.findViewById(R.id.btnAdd);
+
+
             btnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
+                    pDialog.show();
                     Pichangers.service.agregarAlumno(idEquipo,alumnos.get(position).getCodigo()).enqueue(new Callback<Pichangers.Message>() {
                         @Override
                         public void onResponse(Call<Pichangers.Message> call, Response<Pichangers.Message> response) {
-                            finish();
+
+                            pDialog.hide();
+                            new SweetAlertDialog(context, SweetAlertDialog.SUCCESS_TYPE)
+                                    .setTitleText("Listo!")
+                                    .setContentText(alumnos.get(position).getNombre()+" fue añadido al equipo!")
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sDialog) {
+                                            sDialog.dismissWithAnimation();
+                                            finish();
+                                        }
+                                    })
+                                    .show();
                         }
 
                         @Override

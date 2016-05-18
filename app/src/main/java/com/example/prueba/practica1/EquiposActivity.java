@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -53,6 +54,7 @@ public class EquiposActivity extends AppCompatActivity {
                 Log.d("Equipos","Cargo");
                 equipos.clear();
                 equipos.addAll(response.body());
+
                 Log.d("Equipos","equipos:" +equipos.size());
                 adapter.notifyDataSetChanged();
 
@@ -69,7 +71,16 @@ public class EquiposActivity extends AppCompatActivity {
 
 
     }
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case android.R.id.home:
+                // ProjectsActivity is my 'home' activity
+                super. onBackPressed();
+                return true;
+        }
+        return (super.onOptionsItemSelected(menuItem));
+    }
 
 
     class GridAdapter extends BaseAdapter {
@@ -101,7 +112,8 @@ public class EquiposActivity extends AppCompatActivity {
             TextView equipoNombre = (TextView)view.findViewById(R.id.equipoNombre);
             ImageView img = (ImageView) view.findViewById(R.id.imagen);
             equipoNombre.setText(equipos.get(position).getNombre());
-            Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(img);
+            Picasso.with(context).load(equipos.get(position).getUrlImagen()).into(img);
+            Log.d("Equipos","Foto: " +equipos.get(position).getUrlImagen());
 
             FrameLayout btnAgregar = (FrameLayout)view.findViewById(R.id.btnAgregar);
             btnAgregar.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +123,15 @@ public class EquiposActivity extends AppCompatActivity {
                     i.putExtra("idEquipo",equipos.get(position).getId());
                     startActivity(i);
 
+                }
+            });
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context,EquipoActivity.class);
+                    i.putExtra("idEquipo",equipos.get(position).getId());
+                    startActivity(i);
                 }
             });
 
